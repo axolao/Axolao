@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Reservas — Axolao · Comedor Mestizo</title>
+  <meta name="description" content="Reserva tu mesa en Axolao, el comedor mestizo. Cocina mexicana y peruana en una sola experiencia." />
+  <meta name="theme-color" content="#431848" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Reserva tu mesa en Axolao" />
+  <meta property="og:description" content="Comedor mestizo. CDMX — Lima." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="logo-morado.png" />
+
+  <!-- Tipografía: DM Sans (oficial para cuerpo) + Anton como sustituto libre de Compadre para titulares -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Flatpickr para deshabilitar fechas llenas en el calendario -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css" />
+
+  <link rel="icon" type="image/png" href="logo-morado.png" />
+
+  <style>
+    :root {
+      /* Paleta oficial Axolao */
+      --morado: #431848;
+      --morado-dark: #2c0f30;
+      --offwhite: #cac89d;
+      --offwhite-soft: #e2e0bf;
+      --azul: #646ca8;
+      --rojo: #b54936;
+      --negro: #1f1914;
+
+      --radius: 14px;
+      --shadow: 0 18px 50px rgba(0,0,0,.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background: var(--morado);
+      color: var(--negro);
+      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Texturas y manchas decorativas — discreto, manteniendo simplicidad */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(60% 50% at 80% 0%, rgba(100,108,168,.22), transparent 60%),
+        radial-gradient(50% 40% at 0% 100%, rgba(181,73,54,.18), transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }
+
+    header {
+      text-align: center;
+      padding: 12px 0 24px;
+    }
+
+    header img {
+      height: 56px;
+      width: auto;
+      display: inline-block;
+    }
+
+    .hero {
+      text-align: center;
+      color: var(--offwhite);
+      margin: 8px 0 22px;
+    }
+
+    .hero .kicker {
+      font-family: "Anton", "Big Shoulders Display", "DM Sans", sans-serif;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: 13px;
+      color: var(--offwhite);
+      opacity: .85;
+    }
+
+    .hero h1 {
+      font-family: "Anton", "Big Shoulders Display", sans-serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      font-size: clamp(38px, 8vw, 62px);
+      line-height: .95;
+      margin: 10px 0 6px;
+      color: var(--offwhite);
+      letter-spacing: .01em;
+    }
+
+    .hero h1 .accent {
+      color: var(--rojo);
+      display: inline-block;
+      transform: rotate(-5deg);
+    }
+
+    .hero p {
+      max-width: 360px;
+      margin: 12px auto 0;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--offwhite);
+      opacity: .9;
+    }
+
+    /* Tarjeta de formulario */
+    .card {
+      background: var(--offwhite);
+      border-radius: var(--radius);
+      padding: 26px 22px 22px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    /* Esquinas tipo "X" del brandbook (contenedor) */
+    .card::before,
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 3px solid var(--morado);
+    }
+    .card::before {
+      top: -3px; left: -3px;
+      border-right: 0; border-bottom: 0;
+      border-top-left-radius: var(--radius);
+    }
+    .card::after {
+      bottom: -3px; right: -3px;
+      border-left: 0; border-top: 0;
+      border-bottom-right-radius: var(--radius);
+    }
+
+    .card h2 {
+      font-family: "Anton", sans-serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      color: var(--morado);
+      font-size: 24px;
+      margin: 0 0 4px;
+    }
+
+    .card .lead {
+      color: var(--negro);
+      opacity: .75;
+      font-size: 14px;
+      margin: 0 0 18px;
+    }
+
+    .field {
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--morado);
+      margin-bottom: 6px;
+    }
+
+    .input,
+    .select {
+      width: 100%;
+      font: inherit;
+      font-size: 16px;
+      padding: 12px 14px;
+      background: #fff;
+      border: 1.5px solid rgba(67,24,72,.18);
+      border-radius: 10px;
+      color: var(--negro);
+      transition: border-color .15s ease, box-shadow .15s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .input:focus,
+    .select:focus {
+      outline: none;
+      border-color: var(--morado);
+      box-shadow: 0 0 0 3px rgba(67,24,72,.15);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .helper {
+      font-size: 12px;
+      color: var(--morado);
+      opacity: .7;
+      margin-top: 6px;
+      min-height: 16px;
+    }
+
+    .helper.error {
+      color: var(--rojo);
+      opacity: 1;
+      font-weight: 600;
+    }
+
+    /* Botón */
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px 16px;
+      font-family: "Anton", sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--offwhite);
+      background: var(--morado);
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform .08s ease, background .15s ease;
+    }
+    .btn:hover { background: var(--morado-dark); }
+    .btn:active { transform: translateY(1px); }
+    .btn:disabled {
+      background: rgba(31,25,20,.35);
+      cursor: not-allowed;
+      color: rgba(255,255,255,.7);
+    }
+
+    /* Estados */
+    .alert {
+      display: none;
+      margin: 14px 0 0;
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .alert.show { display: block; }
+
+    .alert-ok {
+      background: rgba(100,108,168,.14);
+      border: 1.5px solid var(--azul);
+      color: var(--morado);
+    }
+
+    .alert-warn {
+      background: #fff;
+      border: 1.5px solid var(--rojo);
+      color: var(--negro);
+    }
+    .alert-warn strong { color: var(--rojo); }
+
+    .alert-error {
+      background: rgba(181,73,54,.08);
+      border: 1.5px solid var(--rojo);
+      color: var(--rojo);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      color: var(--offwhite);
+      opacity: .7;
+      font-size: 12px;
+      margin-top: 26px;
+    }
+    footer a { color: var(--offwhite); }
+
+    /* Loader */
+    .loader {
+      display: inline-block;
+      width: 14px; height: 14px;
+      margin-right: 8px;
+      border: 2px solid rgba(255,255,255,.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      vertical-align: -2px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Pantalla de éxito */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 24px 8px;
+    }
+    .success-screen.show { display: block; }
+    .success-screen h2 {
+      font-family: "Anton", sans-serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: var(--morado);
+      font-size: 28px;
+      margin: 12px 0 10px;
+      letter-spacing: .02em;
+    }
+    .success-screen .accent {
+      color: var(--rojo);
+      display: inline-block;
+      transform: rotate(-4deg);
+    }
+    .success-screen p { color: var(--negro); opacity: .8; margin: 6px 0; }
+    .success-screen .summary {
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 16px 0 6px;
+      text-align: left;
+      font-size: 14px;
+      border: 1.5px dashed var(--morado);
+    }
+    .success-screen .summary div { padding: 4px 0; }
+    .success-screen .summary span { color: var(--morado); font-weight: 600; }
+
+    /* Flatpickr — adaptación a la paleta */
+    .flatpickr-day.selected,
+    .flatpickr-day.selected:hover {
+      background: var(--morado);
+      border-color: var(--morado);
+    }
+    .flatpickr-day.today { border-color: var(--azul); }
+    .flatpickr-day.flatpickr-disabled,
+    .flatpickr-day.flatpickr-disabled:hover {
+      color: rgba(31,25,20,.25);
+      text-decoration: line-through;
+    }
+    .flatpickr-months .flatpickr-month,
+    .flatpickr-current-month .flatpickr-monthDropdown-months,
+    .flatpickr-weekday {
+      color: var(--morado);
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <img src="logo.png" alt="Axolao" />
+    </header>
+
+    <section class="hero">
+      <div class="kicker">Comedor Mestizo · CDMX — Lima</div>
+      <h1>Reserva <span class="accent">tu mesa</span></h1>
+      <p>Una <strong>chingana chingona</strong> para la gente. Cuéntanos cuándo te caes y nosotros te guardamos sitio.</p>
+    </section>
+
+    <section class="card" id="formCard">
+      <h2>Tu reserva</h2>
+      <p class="lead">Completa tus datos. Te llegará confirmación por correo.</p>
+
+      <form id="reservaForm" novalidate>
+        <div class="field">
+          <label for="nombre">Nombre completo</label>
+          <input class="input" id="nombre" name="nombre" type="text" autocomplete="name" required maxlength="80" />
+        </div>
+
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input class="input" id="email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="tu@correo.com" />
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="fecha">Fecha</label>
+            <input class="input" id="fecha" name="fecha" type="text" placeholder="Elige el día" required readonly />
+            <div class="helper" id="fechaHelper">Cargando disponibilidad…</div>
+          </div>
+          <div class="field">
+            <label for="hora">Hora</label>
+            <select class="select" id="hora" name="hora" required>
+              <option value="">—</option>
+              <option>13:00</option><option>13:30</option>
+              <option>14:00</option><option>14:30</option>
+              <option>19:00</option><option>19:30</option>
+              <option>20:00</option><option>20:30</option>
+              <option>21:00</option><option>21:30</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="personas">Cantidad de personas</label>
+          <select class="select" id="personas" name="personas" required>
+            <option value="">—</option>
+            <option value="1">1 persona</option>
+            <option value="2">2 personas</option>
+            <option value="3">3 personas</option>
+            <option value="4">4 personas</option>
+            <option value="5">5 personas</option>
+            <option value="6">6 personas</option>
+            <option value="7">7 personas</option>
+            <option value="8">8 personas</option>
+            <option value="9">9 personas</option>
+            <option value="10">10 personas</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn" id="submitBtn">Reservar mi mesa</button>
+
+        <div class="alert alert-warn" id="alertFull">
+          <strong>¡Ay, qué pena!</strong><br/>
+          Muchas gracias, no tenemos espacio para este día. Puedes acercarte directamente al restaurante si lo deseas, aceptaremos personas por orden de llegada.
+        </div>
+        <div class="alert alert-error" id="alertError"></div>
+      </form>
+
+      <div class="success-screen" id="successScreen">
+        <h2>¡Listo, <span class="accent">cuate</span>!</h2>
+        <p>Te guardamos un lugar en Axolao. Te llegará la confirmación a tu correo.</p>
+        <div class="summary" id="successSummary"></div>
+        <p style="margin-top:14px; font-size:13px;">Si necesitas modificar o cancelar, escríbenos por WhatsApp.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>© Axolao · Comedor Mestizo</p>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/es.js"></script>
+
+  <script>
+    // ============================================================
+    //  CONFIGURACIÓN
+    //  Pega aquí la URL de tu Google Apps Script Web App.
+    //  Ej: "https://script.google.com/macros/s/AKfycbx.../exec"
+    // ============================================================
+    const APPS_SCRIPT_URL = "PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT";
+
+    const CAPACIDAD_DIARIA = 30;
+
+    // ---------- Helpers ----------
+    const $ = (id) => document.getElementById(id);
+    const form = $("reservaForm");
+    const submitBtn = $("submitBtn");
+    const alertFull = $("alertFull");
+    const alertError = $("alertError");
+    const fechaHelper = $("fechaHelper");
+    const successScreen = $("successScreen");
+    const successSummary = $("successSummary");
+
+    function fmtDate(d) {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    }
+
+    function showError(msg) {
+      alertError.textContent = msg;
+      alertError.classList.add("show");
+      alertFull.classList.remove("show");
+    }
+    function clearAlerts() {
+      alertError.classList.remove("show");
+      alertFull.classList.remove("show");
+    }
+
+    // ---------- Estado disponibilidad ----------
+    // disponibilidad: { "2026-04-21": 12, "2026-04-22": 30, ... }
+    let disponibilidad = {};
+    let fechasLlenas = [];
+
+    async function cargarDisponibilidad() {
+      try {
+        const url = `${APPS_SCRIPT_URL}?action=disponibilidad`;
+        const res = await fetch(url, { method: "GET" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        disponibilidad = data.totalesPorDia || {};
+        fechasLlenas = Object.keys(disponibilidad).filter(
+          (d) => disponibilidad[d] >= CAPACIDAD_DIARIA
+        );
+        fechaHelper.textContent = fechasLlenas.length
+          ? `Días llenos: ${fechasLlenas.length}`
+          : "Disponibilidad abierta";
+      } catch (e) {
+        console.warn("No se pudo cargar disponibilidad:", e);
+        fechaHelper.textContent = "Verificaremos disponibilidad al enviar.";
+      }
+      iniciarCalendario();
+    }
+
+    function iniciarCalendario() {
+      const minDate = new Date();
+      const maxDate = new Date();
+      maxDate.setMonth(maxDate.getMonth() + 3); // hasta 3 meses adelante
+
+      flatpickr("#fecha", {
+        locale: "es",
+        dateFormat: "Y-m-d",
+        minDate: minDate,
+        maxDate: maxDate,
+        disable: fechasLlenas,
+        disableMobile: false,
+        onChange: function (sel) {
+          const d = sel[0];
+          if (!d) return;
+          const key = fmtDate(d);
+          const ocupados = disponibilidad[key] || 0;
+          const restan = Math.max(0, CAPACIDAD_DIARIA - ocupados);
+          if (restan === 0) {
+            fechaHelper.classList.add("error");
+            fechaHelper.textContent = "Día lleno. Elige otra fecha.";
+            alertFull.classList.add("show");
+          } else {
+            fechaHelper.classList.remove("error");
+            fechaHelper.textContent = `Quedan ${restan} cupos para ese día.`;
+            alertFull.classList.remove("show");
+          }
+        },
+      });
+    }
+
+    // ---------- Validación local ----------
+    function validar() {
+      const personas = parseInt($("personas").value || "0", 10);
+      const fecha = $("fecha").value;
+      if (!$("nombre").value.trim()) return "Escribe tu nombre.";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("email").value.trim()))
+        return "Correo inválido.";
+      if (!fecha) return "Elige una fecha.";
+      if (!$("hora").value) return "Elige una hora.";
+      if (!personas || personas < 1) return "Indica cuántas personas son.";
+      const ocupados = disponibilidad[fecha] || 0;
+      if (ocupados + personas > CAPACIDAD_DIARIA)
+        return "No alcanza el cupo para ese día con esa cantidad de personas.";
+      return null;
+    }
+
+    // ---------- Envío ----------
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      clearAlerts();
+
+      const errorMsg = validar();
+      if (errorMsg) {
+        const fecha = $("fecha").value;
+        const ocupados = disponibilidad[fecha] || 0;
+        if (fecha && ocupados >= CAPACIDAD_DIARIA) {
+          alertFull.classList.add("show");
+        } else {
+          showError(errorMsg);
+        }
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="loader"></span>Enviando…';
+
+      const payload = {
+        action: "reservar",
+        nombre: $("nombre").value.trim(),
+        email: $("email").value.trim(),
+        fecha: $("fecha").value,
+        hora: $("hora").value,
+        personas: parseInt($("personas").value, 10),
+      };
+
+      try {
+        // Apps Script Web App: usamos text/plain para evitar el preflight CORS.
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+
+        if (data.status === "ok") {
+          // Mostrar pantalla de éxito
+          form.style.display = "none";
+          alertFull.classList.remove("show");
+          alertError.classList.remove("show");
+          successSummary.innerHTML = `
+            <div><span>Nombre:</span> ${escapeHtml(payload.nombre)}</div>
+            <div><span>Fecha:</span> ${escapeHtml(payload.fecha)}</div>
+            <div><span>Hora:</span> ${escapeHtml(payload.hora)}</div>
+            <div><span>Personas:</span> ${payload.personas}</div>
+          `;
+          successScreen.classList.add("show");
+        } else if (data.status === "full") {
+          alertFull.classList.add("show");
+          // Refrescar disponibilidad
+          disponibilidad[payload.fecha] = CAPACIDAD_DIARIA;
+          fechasLlenas.push(payload.fecha);
+          iniciarCalendario();
+        } else {
+          showError(data.message || "No pudimos registrar la reserva. Intenta de nuevo.");
+        }
+      } catch (e) {
+        console.error(e);
+        showError("Error de conexión. Revisa tu internet o intenta de nuevo en unos segundos.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Reservar mi mesa";
+      }
+    });
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+
+    // Iniciar
+    if (APPS_SCRIPT_URL.startsWith("PEGA_AQUI")) {
+      fechaHelper.textContent = "⚠ Falta configurar APPS_SCRIPT_URL en index.html";
+      iniciarCalendario();
+    } else {
+      cargarDisponibilidad();
+    }
+  </script>
+</body>
+</html>
