@@ -366,30 +366,30 @@
     </header>
 
     <section class="hero">
-      <div class="kicker">Comedor Mestizo · CDMX — Lima</div>
+      <div class="kicker">Cocina mestiza</div>
       <h1>Reserva <span class="accent">tu mesa</span></h1>
-      <p>Una <strong>chingana chingona</strong> para la gente. Cuéntanos cuándo te caes y nosotros te guardamos sitio.</p>
+      <p> <strong></strong>Cuéntanos cuándo te caes y nosotros te guardamos sitio.</p>
     </section>
 
     <section class="card" id="formCard">
       <h2>Tu reserva</h2>
-      <p class="lead">Completa tus datos. Te llegará confirmación por correo.</p>
+      <p class="lead">Completa tus datos. Te llegará confirmación por whatsapp.</p>
 
       <form id="reservaForm" novalidate>
         <div class="field">
           <label for="nombre">Nombre completo</label>
           <input class="input" id="nombre" name="nombre" type="text" autocomplete="name" required maxlength="80" />
         </div>
-
-        <div class="field">
-          <label for="email">Correo electrónico</label>
-          <input class="input" id="email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="tu@correo.com" />
-        </div>
-
+        
         <div class="field">
           <label for="telefono">WhatsApp <span style="font-weight:400; text-transform:none; letter-spacing:0; opacity:.7;">(con código de país)</span></label>
           <input class="input" id="telefono" name="telefono" type="tel" autocomplete="tel" required maxlength="25" placeholder="+52 55 1234 5678" inputmode="tel" />
           <div class="helper">Aquí te contactaremos para cualquier cambio.</div>
+        </div>
+        
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input class="input" id="email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="tu@correo.com" />
         </div>
 
         <div class="row">
@@ -404,9 +404,14 @@
               <option value="">—</option>
               <option>13:00</option><option>13:30</option>
               <option>14:00</option><option>14:30</option>
+              <option>15:00</option><option>15:30</option>
+              <option>16:00</option><option>16:30</option>
+              <option>17:00</option><option>17:30</option>
+              <option>18:00</option><option>18:30</option>
               <option>19:00</option><option>19:30</option>
               <option>20:00</option><option>20:30</option>
               <option>21:00</option><option>21:30</option>
+              <option>22:00</option><option>22:30</option>
             </select>
           </div>
         </div>
@@ -439,14 +444,14 @@
 
       <div class="success-screen" id="successScreen">
         <h2>¡Listo, <span class="accent">cuate</span>!</h2>
-        <p>Te guardamos un lugar en Axolao. Te llegará la confirmación a tu correo.</p>
+        <p>Te guardamos un lugar en Axolao. Te llegará la confirmación a tu whatsapp y correo.</p>
         <div class="summary" id="successSummary"></div>
         <p style="margin-top:14px; font-size:13px;">Si necesitas modificar o cancelar, escríbenos por WhatsApp.</p>
       </div>
     </section>
 
     <footer>
-      <p>© Axolao · Comedor Mestizo</p>
+      <p>© Cocina Mestiza</p>
     </footer>
   </main>
 
