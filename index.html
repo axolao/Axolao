@@ -4,13 +4,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Reservas — Axolao · Comedor Mestizo</title>
-  <meta name="description" content="Reserva tu mesa en Axolao, el comedor mestizo. Cocina mexicana y peruana en una sola experiencia." />
+  <title>Reservas — Axolao · Cocina mestiza</title>
+  <meta name="description" content="Reserva tu mesa en Axolao. Cocina mestiza: mexicana y peruana en una sola experiencia." />
   <meta name="theme-color" content="#431848" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Reserva tu mesa en Axolao" />
-  <meta property="og:description" content="Comedor mestizo. CDMX — Lima." />
+  <meta property="og:description" content="Cocina mestiza." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="logo-morado.png" />
 
@@ -74,12 +74,13 @@
 
     header {
       text-align: center;
-      padding: 12px 0 24px;
+      padding: 16px 0 28px;
     }
 
     header img {
-      height: 56px;
+      height: 64px;
       width: auto;
+      max-width: 70%;
       display: inline-block;
     }
 
@@ -362,31 +363,31 @@
 <body>
   <main class="page">
     <header>
-      <img src="logo.png" alt="Axolao" />
+      <img src="logo-wordmark.png" alt="Axolao" />
     </header>
 
     <section class="hero">
       <div class="kicker">Cocina mestiza</div>
       <h1>Reserva <span class="accent">tu mesa</span></h1>
-      <p> <strong></strong>Cuéntanos cuándo te caes y nosotros te guardamos sitio.</p>
+      <p>Cuéntanos cuándo te caes y nosotros te guardamos sitio.</p>
     </section>
 
     <section class="card" id="formCard">
       <h2>Tu reserva</h2>
-      <p class="lead">Completa tus datos. Te llegará confirmación por whatsapp.</p>
+      <p class="lead">Completa tus datos. Te llegará confirmación por correo.</p>
 
       <form id="reservaForm" novalidate>
         <div class="field">
           <label for="nombre">Nombre completo</label>
           <input class="input" id="nombre" name="nombre" type="text" autocomplete="name" required maxlength="80" />
         </div>
-        
+
         <div class="field">
           <label for="telefono">WhatsApp <span style="font-weight:400; text-transform:none; letter-spacing:0; opacity:.7;">(con código de país)</span></label>
           <input class="input" id="telefono" name="telefono" type="tel" autocomplete="tel" required maxlength="25" placeholder="+52 55 1234 5678" inputmode="tel" />
           <div class="helper">Aquí te contactaremos para cualquier cambio.</div>
         </div>
-        
+
         <div class="field">
           <label for="email">Correo electrónico</label>
           <input class="input" id="email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="tu@correo.com" />
@@ -411,7 +412,7 @@
               <option>19:00</option><option>19:30</option>
               <option>20:00</option><option>20:30</option>
               <option>21:00</option><option>21:30</option>
-              <option>22:00</option><option>22:30</option>
+              <option>22:00</option>
             </select>
           </div>
         </div>
@@ -443,15 +444,15 @@
       </form>
 
       <div class="success-screen" id="successScreen">
-        <h2>¡Listo, <span class="accent">cuate</span>!</h2>
-        <p>Te guardamos un lugar en Axolao. Te llegará la confirmación a tu whatsapp y correo.</p>
+        <h2>¡<span class="accent">RESERVAO</span>!</h2>
+        <p>Te guardamos un lugar en Axolao. Te llegará la confirmación a tu correo.</p>
         <div class="summary" id="successSummary"></div>
         <p style="margin-top:14px; font-size:13px;">Si necesitas modificar o cancelar, escríbenos por WhatsApp.</p>
       </div>
     </section>
 
     <footer>
-      <p>© Cocina Mestiza</p>
+      <p>© Axolao · Cocina mestiza</p>
     </footer>
   </main>
 
