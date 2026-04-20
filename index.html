@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -365,7 +366,7 @@
     </header>
 
     <section class="hero">
-      <div class="kicker"> </div>
+      <div class="kicker">Comedor Mestizo · CDMX — Lima</div>
       <h1>Reserva <span class="accent">tu mesa</span></h1>
       <p>Una <strong>chingana chingona</strong> para la gente. Cuéntanos cuándo te caes y nosotros te guardamos sitio.</p>
     </section>
@@ -383,6 +384,12 @@
         <div class="field">
           <label for="email">Correo electrónico</label>
           <input class="input" id="email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="tu@correo.com" />
+        </div>
+
+        <div class="field">
+          <label for="telefono">WhatsApp <span style="font-weight:400; text-transform:none; letter-spacing:0; opacity:.7;">(con código de país)</span></label>
+          <input class="input" id="telefono" name="telefono" type="tel" autocomplete="tel" required maxlength="25" placeholder="+52 55 1234 5678" inputmode="tel" />
+          <div class="helper">Aquí te contactaremos para cualquier cambio.</div>
         </div>
 
         <div class="row">
@@ -452,7 +459,7 @@
     //  Pega aquí la URL de tu Google Apps Script Web App.
     //  Ej: "https://script.google.com/macros/s/AKfycbx.../exec"
     // ============================================================
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyc_WG4PkRAzlvHCKBRzv23M0alAofXM9AMVf5_681buA8DxB7Gz4D3StTZvL9xWAWZTA/exec";
+    const APPS_SCRIPT_URL = "PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT";
 
     const CAPACIDAD_DIARIA = 30;
 
@@ -540,12 +547,22 @@
     }
 
     // ---------- Validación local ----------
+    function normalizarTelefono(t) {
+      // Conserva solo dígitos. Si tiene 10 dígitos (MX sin código), prepone 52.
+      let d = String(t || "").replace(/\D/g, "");
+      if (d.length === 10) d = "52" + d;
+      return d;
+    }
+
     function validar() {
       const personas = parseInt($("personas").value || "0", 10);
       const fecha = $("fecha").value;
       if (!$("nombre").value.trim()) return "Escribe tu nombre.";
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("email").value.trim()))
         return "Correo inválido.";
+      const telDigits = normalizarTelefono($("telefono").value);
+      if (telDigits.length < 10)
+        return "Escribe un WhatsApp válido con código de país (ej. +52 55...).";
       if (!fecha) return "Elige una fecha.";
       if (!$("hora").value) return "Elige una hora.";
       if (!personas || personas < 1) return "Indica cuántas personas son.";
@@ -579,6 +596,7 @@
         action: "reservar",
         nombre: $("nombre").value.trim(),
         email: $("email").value.trim(),
+        telefono: normalizarTelefono($("telefono").value),
         fecha: $("fecha").value,
         hora: $("hora").value,
         personas: parseInt($("personas").value, 10),
@@ -600,6 +618,7 @@
           alertError.classList.remove("show");
           successSummary.innerHTML = `
             <div><span>Nombre:</span> ${escapeHtml(payload.nombre)}</div>
+            <div><span>WhatsApp:</span> +${escapeHtml(payload.telefono)}</div>
             <div><span>Fecha:</span> ${escapeHtml(payload.fecha)}</div>
             <div><span>Hora:</span> ${escapeHtml(payload.hora)}</div>
             <div><span>Personas:</span> ${payload.personas}</div>
