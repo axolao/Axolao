@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Axolao · Cocina mestiza</title>
+  <meta name="description" content="Estamos trabajando en lanzar la página de Axolao. Reserva tu mesa por WhatsApp." />
+  <meta name="theme-color" content="#431848" />
+
+  <meta property="og:title" content="Axolao · Cocina mestiza" />
+  <meta property="og:description" content="Pronto en línea. Reserva tu mesa por WhatsApp." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    @font-face {
+      font-family: "Compadre";
+      src: url("Compadre-Regular.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Compadre";
+      src: url("Compadre-Extended.otf") format("opentype");
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Compadre";
+      src: url("Compadre-Wide.otf") format("opentype");
+      font-weight: 900;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Compadre";
+      src: url("Compadre-Narrow.otf") format("opentype");
+      font-weight: 300;
+      font-style: normal;
+    }
+  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="logo-wordmark.png" />
+
+  <style>
+    :root {
+      --morado: #431848;
+      --morado-dark: #2c0f30;
+      --offwhite: #cac89d;
+      --offwhite-soft: #e2e0bf;
+      --azul: #646ca8;
+      --rojo: #b54936;
+      --negro: #1f1914;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100%;
+      background: var(--morado);
+      font-family: "DM Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(60% 50% at 80% 0%, rgba(100,108,168,.25), transparent 60%),
+        radial-gradient(50% 40% at 0% 100%, rgba(181,73,54,.2), transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px 56px;
+      text-align: center;
+    }
+
+    /* Logo */
+    .logo {
+      margin-bottom: 36px;
+    }
+    .logo img {
+      height: 72px;
+      width: auto;
+      max-width: 80vw;
+    }
+
+    /* Texto principal */
+    .headline {
+      font-family: "Compadre", sans-serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      font-size: clamp(36px, 9vw, 72px);
+      line-height: .92;
+      letter-spacing: .01em;
+      color: var(--offwhite);
+      margin-bottom: 12px;
+    }
+    .headline .accent {
+      color: var(--rojo);
+      display: inline-block;
+      transform: rotate(-4deg);
+    }
+
+    .subline {
+      font-size: clamp(14px, 3.5vw, 17px);
+      color: var(--offwhite);
+      opacity: .8;
+      max-width: 380px;
+      line-height: 1.55;
+      margin-bottom: 44px;
+    }
+
+    /* Separador decorativo */
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--rojo);
+      border-radius: 2px;
+      margin: 0 auto 44px;
+      opacity: .7;
+    }
+
+    /* Tarjeta de reserva */
+    .card {
+      background: var(--offwhite);
+      border-radius: 16px;
+      padding: 30px 28px 26px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,.22);
+      position: relative;
+    }
+
+    /* Esquinas decorativas tipo brand */
+    .card::before,
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 3px solid var(--morado);
+    }
+    .card::before {
+      top: -3px; left: -3px;
+      border-right: 0; border-bottom: 0;
+      border-top-left-radius: 16px;
+    }
+    .card::after {
+      bottom: -3px; right: -3px;
+      border-left: 0; border-top: 0;
+      border-bottom-right-radius: 16px;
+    }
+
+    .card-kicker {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--morado);
+      opacity: .65;
+      margin-bottom: 8px;
+    }
+
+    .card h2 {
+      font-family: "Compadre", sans-serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      font-size: 22px;
+      letter-spacing: .03em;
+      color: var(--morado);
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--negro);
+      opacity: .75;
+      margin-bottom: 22px;
+    }
+
+    /* Botón WhatsApp */
+    .btn-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px 20px;
+      background: #25D366;
+      color: #fff;
+      border: 0;
+      border-radius: 11px;
+      font-family: "Compadre", sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .15s ease, transform .08s ease;
+    }
+    .btn-wa:hover { background: #1ebe5d; }
+    .btn-wa:active { transform: translateY(1px); }
+
+    .btn-wa svg {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+    }
+
+    .card-note {
+      margin: 14px 0 0;
+      font-size: 12px;
+      color: var(--morado);
+      opacity: .6;
+      line-height: 1.4;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 40px;
+      color: var(--offwhite);
+      opacity: .45;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <div class="logo">
+      <img src="logo-wordmark.png" alt="Axolao" onerror="this.style.display='none'; document.querySelector('.logo-text').style.display='block'" />
+      <div class="logo-text" style="display:none; font-family:'Anton',sans-serif; font-size:42px; letter-spacing:.08em; color:var(--offwhite); text-transform:uppercase;">AXOLAO</div>
+    </div>
+
+    <h1 class="headline">Estamos<br/>
+      <span class="accent">construyendo</span><br/>
+      algo chido
+    </h1>
+
+    <p class="subline">
+      Nuestra página está en camino.<br/>
+      Mientras tanto, ya puedes hacer tu reserva por WhatsApp.
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="card">
+      <div class="card-kicker">Reservaciones</div>
+      <h2>Reserva tu mesa</h2>
+      <p>Escríbenos por WhatsApp y te ayudamos a apartar tu lugar. Cuéntanos la fecha, hora y cuántos son.</p>
+
+      <a class="btn-wa"
+         href="https://wa.me/525522527107?text=Hola%20Axolao%2C%20quisiera%20hacer%20una%20reservaci%C3%B3n%20%F0%9F%8C%AE"
+         target="_blank"
+         rel="noopener noreferrer">
+        <!-- WhatsApp icon -->
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Escribir por WhatsApp
+      </a>
+
+      <p class="card-note">
+        Responderemos a la brevedad para confirmar tu reserva. 🌮
+      </p>
+    </div>
+
+    <footer>
+      <p>© Axolao · Cocina mestiza</p>
+    </footer>
+  </main>
+</body>
+</html>
